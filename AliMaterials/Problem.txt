@@ -1,0 +1,12 @@
+Write an assembly program that does UPPERCASE the input sentence in a string 
+similar to an UPPERCASE feature in the office word. Assume the given string 
+consists of (for example) two words separated by a space, where each word has 
+at least one upper- and lower-case character. The sentence could be included
+any character on the keyboard consisting of a-z, A-Z, 0-9, and ~…+. For instance, 
+if the input is "the input sentence\n", your program should successively change
+this sentence to "THE INPUT SENTENCE \n". Be sure to test your program using 
+diﬀerent sentences. 
+
+Be sure to test your program using diﬀerent sentences of different lengths. Make 
+sure you can understand the maximum size of the sentences that your program 
+accepts and why is this length.
