@@ -1,3 +1,5 @@
+# test comment
+
 LC0:
 	.ascii " Enter the x, y, and z numbers \0"
 LC1:
