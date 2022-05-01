@@ -1,4 +1,4 @@
-# test comment
+# test comments
 
 LC0:
 	.ascii "Enter a short sentence \0"
