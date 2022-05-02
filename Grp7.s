@@ -7,7 +7,7 @@ LC1:
 LC4:
 	.ascii "%c\0"
 LC2:
-	.ascii "The output is %[^\n] \12\0"
+	.ascii "The output is %c\12\0"
 
 	.globl	_main
 	.def	_main;	.scl	2;	.type	32;	.endef
@@ -25,7 +25,7 @@ _main:
 	# movl 	$LC1, (%esp)	# moves the read in statement to the top of the stack
 	# call 	_scanf			# calls scan to read in the user input
 
-	movl	$0, %esi		# initialize the array
+	movl	$0, %esi		# initialize counter to zero
 
 GetInput:
 	# push the letters onto the stack
@@ -34,8 +34,29 @@ GetInput:
 	movl	$LC4, (%esp)
 	call	_scanf
 	incl	%esi
+FindNewLine:
+
+	# cmpl	$\n,
 LC3:
-	cmpl	$99, %esi		# assume max characters is 100
+	cmpl	$10, %esi		# assume max characters is 100 
 	jle		GetInput
+TestPrint:
+	movzbl	8(%esp), %eax
+	movl	%eax, 4(%esp)
+	movl	$LC2, (%esp)
+	call	_printf
+
+	movzbl	9(%esp), %eax
+	movl	%eax, 4(%esp)
+	movl	$LC2, (%esp)
+	call	_printf
+
+	movzbl	10(%esp), %eax
+	movl	%eax, 4(%esp)
+	movl	$LC2, (%esp)
+	call	_printf
+
+	leave
+	ret
 
 	

@@ -25,19 +25,19 @@ _main:
 	subl	$32, %esp
 		
 	movl	$LC0, (%esp)
-	call	_printf  			#Enter your name: 
+	call	_printf  			# Enter your name: 
 	
 	movl	$0, %ebx			# make array index i=0, array[i], I assume an array of 5 elements
 	jmp		L2
 L3:
-	leal	8(%esp,%ebx), %eax
-	movl	%eax, 4(%esp)
-	movl	$LC1, (%esp)
+	leal	8(%esp,%ebx), %eax	# creating param of where letter will be stored
+	movl	%eax, 4(%esp)		# puts param on stack for scanf to use
+	movl	$LC1, (%esp)		# format for scanf to use
 	call	_scanf
 	
 	addl	$1, %ebx			# scan charachter by character
 L2:
-	cmpl	$4, %ebx			#I assume an array of 5 elements
+	cmpl	$4, %ebx			# I assume an array of 5 elements
 	jle		L3
 	
 	
