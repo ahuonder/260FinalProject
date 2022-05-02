@@ -41,18 +41,21 @@ LC3:
 	cmpl	$10, %esi		# assume max characters is 100 
 	jle		GetInput		# jump back to get Input if not at 10 letters yet
 	# jmp		TestPrint
-
-FindLower1:
+	
 	movl	$0, %esi		# initialize the counter
+FindLower1:
 	movzbl	8(%esp, %esi), %eax	# move letter into eax
-	incl	%esi
 	cmpl	$97, %eax		# compare 97 (a) with eax value to see if lower case
-	jle		TestPrint		# if the value is less than 97, just print
+	jl		EndOfLoop		# if the value is less than 97, skip body and go to loop control
 FindLower2:
-	# addl	$97, %eax		# resets the value to what it was before first comparison
 	cmpl	$122, %eax		# compare 122 (z) with eax value to see if lower case
-	jge		TestPrint		# if value is greater than 122, just print
-	# addl	$122, %eax		# resets eax value
+	jg		EndOfLoop		# if value is greater than 122, skip body and go to loop control
+	subl	$32, %eax		# turn to upper case
+	movb	%al, 8(%esp, %esi)	# move modified letter in 'a' register back to stack
+EndOfLoop:
+	incl	%esi
+	cmpl	$10, %esi
+	jle		FindLower1
 
 TestPrint:
 	movzbl	8(%esp), %eax
