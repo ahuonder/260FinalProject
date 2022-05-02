@@ -57,21 +57,25 @@ EndOfLoop:
 	cmpl	$10, %esi
 	jle		FindLower1
 
+	movl	$0, %esi
 TestPrint:
-	movzbl	8(%esp), %eax
+	movzbl	8(%esp, %esi), %eax
 	movl	%eax, 4(%esp)
 	movl	$LC2, (%esp)
 	call	_printf
+	incl	%esi
+	cmpl	$10, %esi
+	jl		TestPrint
 
-	movzbl	9(%esp), %eax
-	movl	%eax, 4(%esp)
-	movl	$LC2, (%esp)
-	call	_printf
+	# movzbl	9(%esp), %eax
+	# movl	%eax, 4(%esp)
+	# movl	$LC2, (%esp)
+	# call	_printf
 
-	movzbl	10(%esp), %eax
-	movl	%eax, 4(%esp)
-	movl	$LC2, (%esp)
-	call	_printf
+	# movzbl	10(%esp), %eax
+	# movl	%eax, 4(%esp)
+	# movl	$LC2, (%esp)
+	# call	_printf
 
 	leave
 	ret
