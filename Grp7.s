@@ -29,17 +29,31 @@ _main:
 
 GetInput:
 	# push the letters onto the stack
-	leal	8(%esp, %esi), %eax
-	movl	%eax, 4(%esp)
-	movl	$LC4, (%esp)
+	leal	8(%esp, %esi), %eax		# puts address of where the letter will go into eax
+	movl	%eax, 4(%esp)	# puts eax into stack for scanf param
+	movl	$LC4, (%esp)	# puts LC4 into stack for scanf param
 	call	_scanf
-	incl	%esi
+	incl	%esi			# increments counter so mem address will be different and compare statement works
 FindNewLine:
 
 	# cmpl	$\n,
 LC3:
 	cmpl	$10, %esi		# assume max characters is 100 
-	jle		GetInput
+	jle		GetInput		# jump back to get Input if not at 10 letters yet
+	# jmp		TestPrint
+
+FindLower1:
+	movl	$0, %esi		# initialize the counter
+	movzbl	8(%esp, %esi), %eax	# move letter into eax
+	incl	%esi
+	cmpl	$97, %eax		# compare 97 (a) with eax value to see if lower case
+	jle		TestPrint		# if the value is less than 97, just print
+FindLower2:
+	# addl	$97, %eax		# resets the value to what it was before first comparison
+	cmpl	$122, %eax		# compare 122 (z) with eax value to see if lower case
+	jge		TestPrint		# if value is greater than 122, just print
+	# addl	$122, %eax		# resets eax value
+
 TestPrint:
 	movzbl	8(%esp), %eax
 	movl	%eax, 4(%esp)
